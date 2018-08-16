@@ -1,0 +1,28 @@
+workspace:
+  base: /go
+  path: src/github.com/go-training/drone-ci-exp
+
+clone:
+  git:
+    image: plugins/git
+    depth: 50
+    tags: true
+
+pipeline:
+  testing:
+    image: golang:1.10.0
+    commands:
+      - go test -v .
+      - go vet
+
+  build_linux_amd64:
+    image: golang:1.10.0
+    group: build
+    commands:
+      - make build_linux_amd64
+
+  build_linux_i386:
+    image: golang:1.10.0
+    group: build
+    commands:
+      - make build_linux_i386
